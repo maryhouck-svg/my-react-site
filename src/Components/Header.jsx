@@ -7,21 +7,20 @@ const NAV_ITEMS = [
 ];
 
 const Header = ({currentPage, setPage}) => {
-  <h1>hello</h1> 
   const getIconUrl = (id) => {
     switch (id) {
       case 'home':
-        return "/home.jpg";
+        return "/Home.svg";
       case 'planner':
-        return "/calculator.jpg";
+        return "/Calculator.svg";
       case 'gamble':
-        return "/MoneyBag.jpg";
+        return "/MoneyBag.svg";
       default:
         return null;
     }
   }
 
-const logoUrl = "/TigerBank.jpg";
+const logoUrl = "/LogoTiger.svg";
 
   return (
     <nav className = "bg-white shadow-md sticky top-0 z-10">
@@ -31,10 +30,10 @@ const logoUrl = "/TigerBank.jpg";
             <img
               src={logoUrl}
               alt = "Tiger BudgetLogo"
-              className = "w-8 h-8 mr-2 rounded-full"
+              className = "w-6 h-6 mr-6 rounded-full"
+              width = "1000"
+              height = "1000"
             />
-            <span className="text-2xl font-extrabold text-purple-700">TigerBudget
-            </span>
           </div>
 
           <div className="flex space-x-4">
@@ -55,6 +54,8 @@ const logoUrl = "/TigerBank.jpg";
                       src={iconSrc}
                       alt={item.name}
                       className='inline mr-1 w-4 h-4'
+                      width = "30"
+                      height = "30"
                     /> 
                   )}
                   {item.name}

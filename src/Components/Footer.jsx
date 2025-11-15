@@ -1,10 +1,12 @@
+import React from 'react';
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer>
-      <p>© 2024 Seb, Aiden, Mary</p>
+    <footer className="w-full text-center py-4 text-sm text-gray-500 border-t mt-10 bg-white shadow-inner">
+      Paw Points Budgeter | Built by Seb, Aiden, Mary &nbsp;
+      &copy; 2025
     </footer>
-  )
-}
+  );
+};
 
 export default Footer
