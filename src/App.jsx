@@ -10,6 +10,13 @@ function App() {
   const [weeks, setWeeks] = useState('')
   const[showPlan, setShowPlan] = useState(false)
   const [currentPage, setCurrentPage] = useState('home')
+  const [mealsPerWeek, setMealsPerWeek] = useState('')
+
+  const GAMBLE_IMAGE_URL = "/MoneyBag.svg";
+  const FURMAN_IMAGE_URL = "/FurmanWins.svg";
+  const Clemson_IMAGE_URL = "/ClemsonWinningYay!!!.svg";
+  const PAW_IMAGE_URL = "/prizepaw.svg";
+  const TIGER_IMAGE_URL = "/UnderTiger.svg";
 
   const calculatePlan = () => {
     setShowPlan(true);
@@ -24,7 +31,7 @@ function App() {
   const affordableLocations = LOCATIONS.map(loc => ({
     ...loc,
     timesPerWeek: Math.floor(weeklyBudget / loc.avgCost),
-    canAfford: loc.avgCost <= dailyBudget
+    canAfford: loc.avgCost <= budgetPerMeal
   })).sort((a, b) => a.avgCost - b.avgCost);
 
   const renderPage = () => {
@@ -124,7 +131,10 @@ function App() {
                     <h3> Budget Breakdown</h3>
                     <p> Total points: ${pointsNum} </p>
                     <p> Per Week: ${weeklyBudget} </p>
-                    <p> Per Day: ${dailyBudget} </p>
+                    <p> Meals Per Week: ${mealsPerWeek} </p>
+                    <p style={{fontSize: '1.2rem', fontWeight: 'bold'}}>
+                      Budget Per Meal: ${budgetPerMeal}
+                    </p>
                   </div>
                   <h3 style = {{color: '#522D80'}}>Where you can eat</h3>
                   {affordableLocations.map((loc, index) => {
@@ -155,34 +165,35 @@ function App() {
         case 'gamble':
           return(
             <div style = {{padding: '20px', textAlign: 'center'}}>
-              <h2 style = {{color: '#522D80'}}>Gamble your points away here!</h2>
-              <p style = {{color: '666' , marginTop: '20px'}}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginBottom: '20px' }}>
+                <img
+                   src={GAMBLE_IMAGE_URL}
+                   alt="Gamble"
+                  style={{ width: '35px', height: '35px'}}
+                 />
+                 <h2 style = {{color: '#522D80'}}>Gamble your points away here!</h2>
+                 <img
+                  src={GAMBLE_IMAGE_URL}
+                  alt="Gamble"
+                   style={{ width: '35px', height: '35px'}}
+                 />
+              </div>
+              <p style = {{color: '#F56600' , marginTop: '20px', fontSize: '24px'}}>
                 Will clemson beat Furman?
-                <button
-                  onClick={() => setCurrentPage('gamble-result')}
-                  style={{
-                    padding: '20px 50px',
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    background: 'black',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'transform 0.2s'
-                  }}
-                  onMouseOver = {(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                  onMouseOut = {(e) => e.currentTarget.style.transform = 'scale(1)'}
-                  >
-                    YES!!!
-                  </button>
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginBottom: '20px' }}>
+                <img
+                  src={TIGER_IMAGE_URL}
+                  alt="Under Tiger"
+                  style={{ width: '250px', height: '250px' }}
+                />
+                <div style = {{display: 'flex', gap: '20px'}}>
                   <button
                     onClick={() => setCurrentPage('gamble-result')}
                     style={{
                       padding: '20px 50px',
                       fontSize: '18px',
-                      fontWeight: '700',
+                      fontWeight: '600',
                       background: 'black',
                       color: 'white',
                       border: 'none',
@@ -191,18 +202,54 @@ function App() {
                       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                       transition: 'transform 0.2s'
                     }}
-                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                  >
-                    NO!!!
-                  </button>
-              </p>
+                    onMouseOver = {(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut = {(e) => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                      YES!!!
+                    </button>
+                    <button
+                      onClick={() => setCurrentPage('gamble-result')}
+                      style={{
+                        padding: '20px 50px',
+                        fontSize: '18px',
+                        fontWeight: '700',
+                        background: 'black',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '12px',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                        transition: 'transform 0.2s'
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                      onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                      NO!!!
+                    </button>
+                </div>
+                <img
+                  src={PAW_IMAGE_URL}
+                  alt="Prize Paw"
+                  style={{ width: '300px', height: '300px' }}
+                />
               </div>
+            </div>
           );
         
         case 'gamble-result':
           return(
-            <div style={{ padding: '40px', textAlign: 'center', maxWidth: '600px', margin: '0 auto'}}>
+            <div style={{ padding: '40px', textAlign: 'center', maxWidth: '600px', margin: '0 auto', position: 'relative' }}>
+              <img
+                src={FURMAN_IMAGE_URL}
+                alt="Furman Wins"
+                style={{ position: 'absolute', width: '300px', height: '300px', top: '50%', left: '-300px', transform: 'translateY(-50%)' }}
+              />
+
+              <img
+                src={Clemson_IMAGE_URL}
+                alt="Clemson Wins"
+                style={{ position: 'absolute', width: '300px', height: '300px', top: '60%', right: '-300px', transform: 'translateY(-50%)' }}
+              />
               <h2 style={{color: 'red', fontSize: '2.5rem', marginBottom: '30px'}}>
               WRONG!!!!!
               <br/>
@@ -255,6 +302,7 @@ function App() {
       <div>
         <Header currentPage = {currentPage} setPage = {setCurrentPage} />
         {renderPage()}
+        <Footer />
       </div>
     )  
     
